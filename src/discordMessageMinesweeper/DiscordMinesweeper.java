@@ -10,7 +10,7 @@ public class DiscordMinesweeper {
 		int yheight = 14;
 		int bombCount = 9;
 		
-		System.out.println("__***Discord Minesweeper***__");
+		System.out.println("__***Discord Minesweeper***__\n\n");
 		System.out.println("**Minesweeper** *(" + xwidth + "x" + yheight + " with " + bombCount + " bombs)*");
 		int[][] minefield = Minesweeper.generateFullArray(xwidth, yheight, bombCount);
 		String[][] discordMinefield = new String[minefield[0].length][minefield.length];
