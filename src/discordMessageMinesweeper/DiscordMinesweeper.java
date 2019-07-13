@@ -19,6 +19,12 @@ public class DiscordMinesweeper {
 		if (bombCount > yheight * xwidth) {
 			bombCount = yheight * xwidth;
 		}
+		if(xwidth <= 0) {
+			xwidth = 1;
+		}
+		if(yheight <= 0) {
+			yheight = 1;
+		}
 		String print= "";
 		print += "**Minesweeper** *(" + xwidth + "x" + yheight + " with " + bombCount + " bombs)*\n";
 		int[][] minefield = Minesweeper.generateFullArray(yheight, xwidth, bombCount);
