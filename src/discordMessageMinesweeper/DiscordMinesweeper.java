@@ -4,18 +4,20 @@ public class DiscordMinesweeper {
 
 	public static void main(String[] args) {
 		
-		//VARIABLES
+		// vvv VARIABLES (CHANGE THESE)
 		
-		int xwidth = 14;
-		int yheight = 14;
+		int xwidth = 17;
+		int yheight = 11;
 		int bombCount = 9;
 		
-		System.out.println("__***Discord Minesweeper***__\n\n");
-		System.out.println("**Minesweeper** *(" + xwidth + "x" + yheight + " with " + bombCount + " bombs)*");
-		int[][] minefield = Minesweeper.generateFullArray(xwidth, yheight, bombCount);
-		String[][] discordMinefield = new String[minefield[0].length][minefield.length];
-		for(int i = 0; i < minefield.length; i++) { //yheight
-			for(int j = 0; j < minefield[0].length; j++) { //xwidth
+		
+		
+		String print= "";
+		print += "**Minesweeper** *(" + xwidth + "x" + yheight + " with " + bombCount + " bombs)*\n";
+		int[][] minefield = Minesweeper.generateFullArray(yheight, xwidth, bombCount);
+		String[][] discordMinefield = new String[minefield.length][minefield[0].length];
+		for(int i = 0; i < minefield[0].length; i++) { //xwidth
+			for(int j = 0; j < minefield.length; j++) { //yheight
 				if(minefield[j][i] == 0) {
 					discordMinefield[j][i] = "||:zero:||";
 				} else if(minefield[j][i] == 1) {
@@ -39,7 +41,13 @@ public class DiscordMinesweeper {
 				} 
 			}
 		}
-		Minesweeper.printArray(discordMinefield);
+		print += Minesweeper.printArray(discordMinefield);
+		if(print.length() < 2000) {
+			System.out.println(print);
+		} else {
+			System.out.println("-------WARNING: OVER 2000 CHARCTER LIMIT-------\n\n\n");
+			System.out.println(print);
+		}
 	}
 
 }

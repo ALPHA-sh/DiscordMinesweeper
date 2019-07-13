@@ -3,19 +3,19 @@ package discordMessageMinesweeper;
 import java.util.Random;
 
 public class Minesweeper {
-	public static int[][] generateBombCoords(int yheight, int xwidth, int count) {
+	public static int[][] generateBombCoords(int xwidth, int yheight, int count) {
 		Random rnd = new Random();
 		String list = ",";
 		int[][] bombs = new int[2][count];
 		for(int i = 0; i < count; i++) {
-			int a = rnd.nextInt(xwidth);
+			int a = rnd.nextInt(yheight);
 			while(list.contains("," + a + "/")) {
-				a = rnd.nextInt(xwidth);
+				a = rnd.nextInt(yheight);
 			}
 			list += a + "/";
-			int b = rnd.nextInt(yheight);
+			int b = rnd.nextInt(xwidth);
 			while(list.contains("/" + b + ",")) {
-				b = rnd.nextInt(yheight);
+				b = rnd.nextInt(xwidth);
 			}
 			list += b + ",";
 			bombs[0][i] = a;
@@ -23,10 +23,10 @@ public class Minesweeper {
 		}
 		return bombs;
 	}
-	//bombs[0][a] is X, bombs[1][a] is Y
+	//bombs[0][a] is y, bombs[1][a] is x
 	
-	public static boolean checkExist(int yheight, int xwidth, int x, int y) {
-		if(y >= 0 && y < yheight && x < xwidth && x >= 0) {
+	public static boolean checkExist(int xwidth, int yheight, int y, int x) {
+		if(x >= 0 && x < xwidth && y < yheight && y >= 0) {
 			return true;
 		}
 		else {
@@ -34,9 +34,9 @@ public class Minesweeper {
 		}
 	}
 	
-	public static boolean checkBomb(int[][] bombs, int x, int y) {
+	public static boolean checkBomb(int[][] bombs, int y, int x) {
 		for(int i = 0; i < bombs[0].length; i++) {
-			if(bombs[0][i] == x && bombs[1][i] == y) {
+			if(bombs[0][i] == y && bombs[1][i] == x) {
 				return true;
 			}
 		}
@@ -44,34 +44,34 @@ public class Minesweeper {
 	}
 	
 	
-	public static int checkNumber(int[][] bombs, int yheight, int xwidth, int x, int y) {
+	public static int checkNumber(int[][] bombs, int xwidth, int yheight, int y, int x) {
 		int number = 0;
-		if(checkExist(yheight, xwidth, x, y)) {
-			if(checkBomb(bombs, x, y)) {
+		if(checkExist(xwidth, yheight, y, x)) {
+			if(checkBomb(bombs, y, x)) {
 				number =  -1;
 			} else {
-				if(checkBomb(bombs, x-1, y-1)) {
+				if(checkBomb(bombs, y-1, x-1)) {
 					number++;
 				}
-				if(checkBomb(bombs, x, y-1)) {
+				if(checkBomb(bombs, y, x-1)) {
 					number++;
 				}
-				if(checkBomb(bombs, x+1, y-1)) {
+				if(checkBomb(bombs, y+1, x-1)) {
 					number++;
 				}
-				if(checkBomb(bombs, x-1, y)) {
+				if(checkBomb(bombs, y-1, x)) {
 					number++;
 				}
-				if(checkBomb(bombs, x+1, y)) {
+				if(checkBomb(bombs, y+1, x)) {
 					number++;
 				}
-				if(checkBomb(bombs, x-1, y+1)) {
+				if(checkBomb(bombs, y-1, x+1)) {
 					number++;
 				}
-				if(checkBomb(bombs, x, y+1)) {
+				if(checkBomb(bombs, y, x+1)) {
 					number++;
 				}
-				if(checkBomb(bombs, x+1, y+1)) {
+				if(checkBomb(bombs, y+1, x+1)) {
 					number++;
 				}
 			}
@@ -79,12 +79,12 @@ public class Minesweeper {
 		return number;
 	}
 	
-	public static int[][] generateFullArray(int yheight, int xwidth, int numberOfBombs) {
-		int[][] bombs = generateBombCoords(yheight, xwidth, numberOfBombs);
-		int[][] minefield = new int[xwidth][yheight];
-		for(int i = 0; i < yheight; i++) {
-			for(int j = 0; j < xwidth; j++) {
-				minefield[j][i] = checkNumber(bombs, yheight, xwidth, j, i);
+	public static int[][] generateFullArray(int xwidth, int yheight, int numberOfBombs) {
+		int[][] bombs = generateBombCoords(xwidth, yheight, numberOfBombs);
+		int[][] minefield = new int[yheight][xwidth];
+		for(int i = 0; i < xwidth; i++) {
+			for(int j = 0; j < yheight; j++) {
+				minefield[j][i] = checkNumber(bombs, xwidth, yheight, j, i);
 			}
 		}
 		
@@ -92,19 +92,21 @@ public class Minesweeper {
 	}
 	
 	public static void printArray(int[][] arr) {
-		for(int i = 0; i < arr.length; i++) { //yheight
-			for(int j = 0; j < arr[0].length; j++) { //xwidth
+		for(int i = 0; i < arr[0].length; i++) { //xwidth
+			for(int j = 0; j < arr.length; j++) { //yheight
 				System.out.print(arr[j][i] + ",");
 			}
 			System.out.println();
 		}
 	}
-	public static void printArray(String[][] arr) {
-		for(int i = 0; i < arr.length; i++) { //yheight
-			for(int j = 0; j < arr[0].length; j++) { //xwidth
-				System.out.print(arr[j][i]);
+	public static String printArray(String[][] arr) {
+		String print = "";
+		for(int i = 0; i < arr[0].length; i++) { //xwidth
+			for(int j = 0; j < arr.length; j++) { //yheight
+				print += arr[j][i];
 			}
-			System.out.println();
+			print += "\n";
 		}
+		return print;
 	}
 }
