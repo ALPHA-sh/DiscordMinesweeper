@@ -7,23 +7,22 @@ public class DiscordMinesweeper {
 		//---------------------------------
 		// vvv VARIABLES (CHANGE THESE) vvv
 		
-		int xwidth = 14;
-		int yheight = 13;
-		int bombCount = 196;
+		int xwidth = 12;
+		int yheight = 12;
+		int bombCount = 9;
 		
 		
 		//---------------------------------
 		
 		
-		
-		if (bombCount > yheight * xwidth) {
-			bombCount = yheight * xwidth;
-		}
 		if(xwidth <= 0) {
 			xwidth = 1;
 		}
 		if(yheight <= 0) {
 			yheight = 1;
+		}
+		if (bombCount > yheight * xwidth) {
+			bombCount = yheight * xwidth;
 		}
 		String print= "";
 		print += "**Minesweeper** *(" + xwidth + "x" + yheight + " with " + bombCount + " bombs)*\n";
