@@ -4,14 +4,21 @@ public class DiscordMinesweeper {
 
 	public static void main(String[] args) {
 		
-		// vvv VARIABLES (CHANGE THESE)
+		//---------------------------------
+		// vvv VARIABLES (CHANGE THESE) vvv
 		
-		int xwidth = 17;
-		int yheight = 11;
-		int bombCount = 9;
+		int xwidth = 14;
+		int yheight = 13;
+		int bombCount = 196;
+		
+		
+		//---------------------------------
 		
 		
 		
+		if (bombCount > yheight * xwidth) {
+			bombCount = yheight * xwidth;
+		}
 		String print= "";
 		print += "**Minesweeper** *(" + xwidth + "x" + yheight + " with " + bombCount + " bombs)*\n";
 		int[][] minefield = Minesweeper.generateFullArray(yheight, xwidth, bombCount);

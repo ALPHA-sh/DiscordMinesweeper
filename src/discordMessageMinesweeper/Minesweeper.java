@@ -9,14 +9,12 @@ public class Minesweeper {
 		int[][] bombs = new int[2][count];
 		for(int i = 0; i < count; i++) {
 			int a = rnd.nextInt(yheight);
-			while(list.contains("," + a + "/")) {
-				a = rnd.nextInt(yheight);
-			}
-			list += a + "/";
 			int b = rnd.nextInt(xwidth);
-			while(list.contains("/" + b + ",")) {
+			while(list.contains("," + a + "/" + b + ",")) {
+				a = rnd.nextInt(yheight);
 				b = rnd.nextInt(xwidth);
 			}
+			list += a + "/";
 			list += b + ",";
 			bombs[0][i] = a;
 			bombs[1][i] = b;
